@@ -7,10 +7,11 @@ export const ContactList = () => {
   const contacts = useSelector(getContacts);
   const filterQue = useSelector(getFilter);
   const dispatch = useDispatch();
-  console.log(`'filterQue ' ${filterQue}`);
 
-  const filteredContacts = contacts.filter(item =>
-    item.name.name.includes(filterQue)
+  const filteredContacts = contacts.filter(
+    item =>
+      item.name &&
+      item.name.name.toLowerCase().includes(filterQue.toLowerCase())
   );
 
   return (
