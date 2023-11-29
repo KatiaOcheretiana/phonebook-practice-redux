@@ -10,7 +10,7 @@ export const ContactList = () => {
   console.log(`'filterQue ' ${filterQue}`);
 
   const filteredContacts = contacts.filter(item =>
-    item.name.name.toLowerCase().includes(filterQue.toLowerCase())
+    item.name.name.includes(filterQue)
   );
 
   return (
