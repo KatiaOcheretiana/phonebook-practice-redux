@@ -1,6 +1,9 @@
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Form, Field, ErrorMessage, Button } from './ContactForm.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts } from 'redux/selectors';
+import { addNewContact } from 'redux/contactSlice';
 
 const ContactSchema = Yup.object().shape({
   name: Yup.string().min(3, 'Too Short!').required('Required'),
@@ -12,13 +15,47 @@ const ContactSchema = Yup.object().shape({
     .required('Number is required'),
 });
 
-export const ContactForm = ({ onAdd }) => {
+export const ContactForm = () => {
+  const contacts = useSelector(getContacts);
+
+  const dispatch = useDispatch();
+
+  // const handleAddContact = newContact => {
+  //   const isNameRepeat = contacts.some(
+  //     contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
+  //   );
+  //   if (isNameRepeat) {
+  //     alert(`${newContact.name} is already in contacts.`);
+  //     return;
+  //   }
+  //   dispatch(addNewContact(newContact));
+  // };
+
+  const handleAddContact = newContact => {
+    const isNameRepeat = contacts.some(contact => {
+      const contactName =
+        typeof contact.name === 'string'
+          ? contact.name
+          : typeof contact.name === 'object' && contact.name.name
+          ? contact.name.name
+          : '';
+
+      return contactName.toLowerCase() === newContact.name.toLowerCase();
+    });
+
+    if (isNameRepeat) {
+      alert(`${newContact.name} is already in contacts.`);
+      return;
+    }
+    dispatch(addNewContact(newContact));
+  };
+
   return (
     <Formik
       initialValues={{ name: '', number: '' }}
       validationSchema={ContactSchema}
       onSubmit={(values, actions) => {
-        onAdd(values);
+        handleAddContact(values);
         actions.resetForm();
       }}
     >
