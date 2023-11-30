@@ -21,10 +21,17 @@ export const ContactForm = () => {
   const dispatch = useDispatch();
 
   const handleAddContact = newContact => {
-    const isNameRepeat = contacts.some(
-      contact =>
-        contact.name.name.toLowerCase() === newContact.name.toLowerCase()
-    );
+    const isNameRepeat = contacts.some(contact => {
+      const contactName = contact?.name?.name;
+      const newContactName = newContact.name;
+
+      return (
+        contactName &&
+        newContactName &&
+        contactName.toLowerCase() === newContactName.toLowerCase()
+      );
+    });
+
     if (isNameRepeat) {
       alert(`${newContact.name} is already in contacts.`);
       return;
