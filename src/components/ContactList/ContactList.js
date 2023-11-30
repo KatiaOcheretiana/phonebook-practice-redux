@@ -8,22 +8,32 @@ export const ContactList = () => {
   const filterQue = useSelector(getFilter);
   const dispatch = useDispatch();
 
-  const filteredContacts = contacts.filter(item =>
-    item.name?.name.toLowerCase().includes(filterQue.toLowerCase())
-  );
+  const filterContacts = (contacts, filter) => {
+    if (contacts.length === 0) {
+      return [];
+    }
+
+    return contacts.filter(
+      item =>
+        item && item.name.name.toLowerCase().includes(filter.toLowerCase())
+    );
+  };
+
+  const filteredContacts = filterContacts(contacts, filterQue);
 
   return (
     <List>
-      {filteredContacts.map(item => (
-        <Item key={item.id}>
-          <p>
-            {item.name.name}: {item.name.number}
-          </p>
-          <Button onClick={() => dispatch(deleteContact(item.id))}>
-            Delete
-          </Button>
-        </Item>
-      ))}
+      {filteredContacts &&
+        filteredContacts.map(item => (
+          <Item key={item.id}>
+            <p>
+              {item.name.name}: {item.name.number}
+            </p>
+            <Button onClick={() => dispatch(deleteContact(item.id))}>
+              Delete
+            </Button>
+          </Item>
+        ))}
     </List>
   );
 };
