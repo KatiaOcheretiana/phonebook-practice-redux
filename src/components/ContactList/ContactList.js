@@ -9,7 +9,7 @@ export const ContactList = () => {
   const dispatch = useDispatch();
 
   const filteredContacts = contacts.filter(item =>
-    item.name.name.toLowerCase().includes(filterQue.toLowerCase())
+    item.name?.name.toLowerCase().includes(filterQue.toLowerCase())
   );
 
   return (
