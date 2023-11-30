@@ -17,7 +17,6 @@ const ContactSchema = Yup.object().shape({
 
 export const ContactForm = () => {
   const contacts = useSelector(getContacts);
-
   const dispatch = useDispatch();
 
   const handleAddContact = newContact => {
@@ -28,7 +27,7 @@ export const ContactForm = () => {
       alert(`${newContact.name} is already in contacts.`);
       return;
     }
-    dispatch(addNewContact(newContact));
+    dispatch(addNewContact(newContact.name, newContact.number));
   };
 
   return (
@@ -46,13 +45,11 @@ export const ContactForm = () => {
           <Field type="text" name="name" />
           <ErrorMessage name="name" component="span" />
         </label>
-
         <label>
           Number
           <Field type="tel" name="number" />
           <ErrorMessage name="number" component="span" />
         </label>
-
         <Button type="submit">Add contact</Button>
       </Form>
     </Formik>

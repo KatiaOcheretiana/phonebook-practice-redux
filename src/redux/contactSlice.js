@@ -1,6 +1,7 @@
 import { nanoid } from 'nanoid';
 
 export const storageKey = 'contacts';
+
 const getInitialContacts = () => {
   const savedContacts = localStorage.getItem(storageKey);
   return savedContacts !== null ? JSON.parse(savedContacts) : [];
