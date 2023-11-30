@@ -9,8 +9,7 @@ export const ContactList = () => {
   const dispatch = useDispatch();
 
   const filteredContacts = contacts.filter(item => {
-    const name = item?.name?.name;
-    return name && name.toLowerCase().includes(filterQue.toLowerCase());
+    return item.name.toLowerCase().includes(filterQue.toLowerCase());
   });
 
   return (
@@ -19,7 +18,7 @@ export const ContactList = () => {
         filteredContacts.map(item => (
           <Item key={item.id}>
             <p>
-              {item.name.name}: {item.name.number}
+              {item.name}: {item.name}
             </p>
             <Button onClick={() => dispatch(deleteContact(item.id))}>
               Delete
