@@ -24,13 +24,6 @@ export const contactReducer = (state = initialState, action) => {
   }
 };
 
-export const contactsByFilter = value => {
-  return {
-    type: 'contact/contactsByFilter',
-    payload: value,
-  };
-};
-
 export const addNewContact = (name, number) => {
   return {
     type: 'contact/addContact',
